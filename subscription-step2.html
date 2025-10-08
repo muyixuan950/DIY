@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Subscription Step 2 — DIYBox</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header>
+  <div class="logo">DIYBox</div>
+  <nav class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="subscription.html">Subscription</a>
+    <a href="about.html">About Us</a>
+    <a href="community.html">Community</a>
+  </nav>
+</header>
+
+<main class="subscription-step">
+  <h1>Customize Your Plan</h1>
+
+  <!-- duration & people 选择 -->
+  <div class="bar-horizontal">
+    <div class="bar-line">
+      <label for="monthSelect">📦 Duration: How many months would you like to subscribe?</label>
+      <select id="monthSelect">
+        <option value="1">1</option>
+        <option value="3">3</option>
+        <option value="6">6</option>
+        <option value="12">12</option>
+      </select>
+    </div>
+
+    <div class="bar-line">
+      <label for="peopleSelect">👥 Group Size: How many people are subscribing together?</label>
+      <select id="peopleSelect">
+        <option value="1">1</option>
+        <option value="3">3</option>
+        <option value="5">5</option>
+        <option value="8">8</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- theme 区域 -->
+  <div class="theme-container">
+    <div class="theme-box" data-theme="painting">
+      <h2>🎨 Painting Theme</h2>
+      <p class="price">€10/total</p>
+      <button class="btn-select">Select this theme</button>
+    </div>
+
+    <div class="theme-box" data-theme="crafting">
+      <h2>🧵 Crafting Theme</h2>
+      <p class="price">€10/total</p>
+      <button class="btn-select">Select this theme</button>
+    </div>
+  </div>
+
+  <!-- back & proceed -->
+  <div class="button-group">
+    <button class="btn-unified" onclick="history.back()">← Back</button>
+    <button class="btn-unified" id="proceedBtn" disabled>Proceed to Checkout →</button>
+  </div>
+</main>
+
+<!-- 免责声明 -->
+<div class="disclaimer">
+  🧡 Made with love & glue sticks by Selina. Content by Ariane, Hannah, Margaux, Selina 🧵<br/>
+  Use for ECP class only, not for commercial
+</div>
+
+<!--footer-->
+<footer>
+  <p>© 2025 DIYBox — Craft. Create. Connect.</p>
+</footer>
+
+<script>
+  const monthSelect = document.getElementById('monthSelect');
+  const peopleSelect = document.getElementById('peopleSelect');
+  const priceEls = document.querySelectorAll('.price');
+  const themeBoxes = document.querySelectorAll('.theme-box');
+  const proceedBtn = document.getElementById('proceedBtn');
+
+  const priceTable = {
+    '1-1': 10, '1-3': 27, '1-5': 40, '1-8': 60,
+    '3-1': 27, '3-3': 75, '3-5': 110, '3-8': 165,
+    '6-1': 50, '6-3': 140, '6-5': 200, '6-8': 300,
+    '12-1': 95, '12-3': 270, '12-5': 380, '12-8': 560
+  };
+
+  function getPrice(months, people) {
+    return priceTable[`${months}-${people}`] || (months * people * 10);
+  }
+
+  function updatePrices() {
+    const months = parseInt(monthSelect.value);
+    const people = parseInt(peopleSelect.value);
+    const price = getPrice(months, people);
+    priceEls.forEach(el => {
+      el.textContent = `€${price}/total`;
+    });
+  }
+
+  // 主题选择逻辑
+  themeBoxes.forEach(box => {
+    box.addEventListener('click', () => {
+      themeBoxes.forEach(b => b.classList.remove('active'));
+      box.classList.add('active');
+
+      const theme = box.getAttribute('data-theme');
+      const months = monthSelect.value;
+      const people = peopleSelect.value;
+      const price = getPrice(months, people);
+
+      localStorage.setItem('selectedTheme', theme);
+      localStorage.setItem('selectedMonths', months);
+      localStorage.setItem('selectedPeople', people);
+      localStorage.setItem('selectedPrice', price);
+
+      // 激活 Proceed 按钮
+      proceedBtn.disabled = false;
+    });
+  });
+
+  // Proceed 按钮点击逻辑
+  proceedBtn.addEventListener('click', () => {
+    const theme = localStorage.getItem('selectedTheme');
+    const months = localStorage.getItem('selectedMonths');
+    const people = localStorage.getItem('selectedPeople');
+    const price = localStorage.getItem('selectedPrice');
+    alert(`Proceeding with: ${theme} — ${months} months for ${people} people (€${price})`);
+    // 可以改成：
+    // window.location.href = 'subscription-step3.html';
+  });
+
+  // 初始化价格
+  window.addEventListener('DOMContentLoaded', updatePrices);
+  monthSelect.addEventListener('change', updatePrices);
+  peopleSelect.addEventListener('change', updatePrices);
+</script>
+
+</body>
+</html>
+
