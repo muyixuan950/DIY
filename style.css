@@ -704,3 +704,39 @@ footer {
   background-color: #fff3eb;
   transform: translateY(-4px);
 }
+
+/* Community Gallery 样式 */
+
+.community-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  padding: 2rem;
+}
+
+.gallery-item {
+  width: 280px;
+  text-align: center;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.06);
+}
+
+.gallery-text {
+  margin-top: 0.5rem;
+}
+
+.gallery-text .date {
+  font-size: 0.85rem;
+  color: #999;
+}
+
+.gallery-text .label {
+  font-weight: 600;
+  color: #e37472;
+}
