@@ -8,11 +8,12 @@
 </head>
 <body>
 
+<!-- 头部 -->
 <header>
-  <div class="logo">DIYBox</div>
+  <div class="logo">CRAFTING FRIENDSHIP</div>
   <nav class="nav-links">
     <a href="index.html">Home</a>
-    <a href="subscription.html">Subscription</a>
+    <a href="explore.html">Subscription</a>
     <a href="about.html">About Us</a>
     <a href="community.html">Community</a>
   </nav>
@@ -20,13 +21,13 @@
 
 <main class="subscription-step">
   <h1>Customize Your Plan</h1>
+  <p class="subheading">Join now! Over 5,000 women are already part of our community.</p>
 
   <!-- duration & people 选择 -->
   <div class="bar-horizontal">
     <div class="bar-line">
       <label for="monthSelect">📦 Duration: How many months would you like to subscribe?</label>
       <select id="monthSelect">
-        <option value="1">1</option>
         <option value="3">3</option>
         <option value="6">6</option>
         <option value="12">12</option>
@@ -36,10 +37,10 @@
     <div class="bar-line">
       <label for="peopleSelect">👥 Group Size: How many people are subscribing together?</label>
       <select id="peopleSelect">
-        <option value="1">1</option>
+        <option value="2">2</option>
         <option value="3">3</option>
         <option value="5">5</option>
-        <option value="8">8</option>
+        <option value="6">6</option>
       </select>
     </div>
   </div>
@@ -48,21 +49,21 @@
   <div class="theme-container">
     <div class="theme-box" data-theme="painting">
       <h2>🎨 Painting Theme</h2>
-      <p class="price">€10/total</p>
+      <p class="price">€35/per month</p>
       <button class="btn-select">Select this theme</button>
     </div>
 
     <div class="theme-box" data-theme="crafting">
       <h2>🧵 Crafting Theme</h2>
-      <p class="price">€10/total</p>
+      <p class="price">€35/per month</p>
       <button class="btn-select">Select this theme</button>
     </div>
   </div>
 
   <!-- back & proceed -->
   <div class="button-group">
-    <button class="btn-unified" onclick="history.back()">← Back</button>
-    <button class="btn-unified" id="proceedBtn" disabled>Proceed to Checkout →</button>
+    <button class="btn-unified" onclick="history.back()">Back</button>
+    <button class="btn-unified" id="proceedBtn" disabled>Proceed to Checkout</button>
   </div>
 </main>
 
@@ -85,10 +86,9 @@
   const proceedBtn = document.getElementById('proceedBtn');
 
   const priceTable = {
-    '1-1': 10, '1-3': 27, '1-5': 40, '1-8': 60,
-    '3-1': 27, '3-3': 75, '3-5': 110, '3-8': 165,
-    '6-1': 50, '6-3': 140, '6-5': 200, '6-8': 300,
-    '12-1': 95, '12-3': 270, '12-5': 380, '12-8': 560
+    '3-2': 35, '3-3': 52.50, '3-5': 87.50, '3-6': 105,
+    '6-2': 29.99, '6-3': 44.99, '6-5': 74.99, '6-6': 89.99,
+    '12-2': 20, '12-3': 30, '12-5': 50, '12-6': 60
   };
 
   function getPrice(months, people) {
@@ -100,7 +100,7 @@
     const people = parseInt(peopleSelect.value);
     const price = getPrice(months, people);
     priceEls.forEach(el => {
-      el.textContent = `€${price}/total`;
+      el.textContent = `€${price}/per month`;
     });
   }
 
